@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import './Login.css';
 import axios from 'axios';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+import AllUser from './AllUser';
 
 class Login extends Component {
     constructor(props) {
@@ -51,36 +53,56 @@ class Login extends Component {
             });
     }
     render() {
-        return (
-            <Grid container>
-                <div className="login">
-                <h1 style={{marginTop:55}}>Login</h1>
-                <Card style={{padding:10}}>
-                    <form onSubmit={this.onSubmit}>
-                        <div className="form-group">
-                            <label>Name</label>
-                            <input required 
-                                type="text" 
-                                className="form-control" 
-                                value={this.state.user_name}
-                                onChange={this.onChangeUserName}
-                            />
+        if(!(localStorage.getItem('token'))){
+            return (
+                <Grid container>
+                    <Router>
+                        <div className="container">
+                            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul className="navbar-nav mr-auto">
+                                        <li className="nav-item">
+                                            <Link onClick={() => {this.props.history.push('/')}} to={'/'} className="nav-link">Sign Up</Link>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
                         </div>
-                        <div className="form-group">
-                            <label>Password</label>
-                            <input required
-                                type="password" 
-                                className="form-control" 
-                                value={this.state.user_password}
-                                onChange={this.onChangeUserPassword}
-                            />
-                        </div>
-                        <Button variant="contained" color="primary" type="submit">Login</Button>
-                    </form>
-                </Card>
-                </div>
-            </Grid>
-        )
+                    </Router>
+                    <div className="login">
+                    <h1 style={{marginTop:55}}>Login</h1>
+                    <Card style={{padding:10}}>
+                        <form onSubmit={this.onSubmit}>
+                            <div className="form-group">
+                                <label>Name</label>
+                                <input required 
+                                    type="text" 
+                                    className="form-control" 
+                                    value={this.state.user_name}
+                                    onChange={this.onChangeUserName}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Password</label>
+                                <input required
+                                    type="password" 
+                                    className="form-control" 
+                                    value={this.state.user_password}
+                                    onChange={this.onChangeUserPassword}
+                                />
+                            </div>
+                            <Button variant="contained" color="primary" type="submit">Login</Button>
+                        </form>
+                    </Card>
+                    </div>
+                </Grid>
+            )
+        } else {
+            return(
+                this.props.history.push('/alluser'),
+                <AllUser />
+            )
+        }
     }
 }
 

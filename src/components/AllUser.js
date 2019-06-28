@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 // import TableRow from './TableRow';
 import { connect } from 'react-redux';
+import EditUser from './EditUser';
+import TableRow from './TableRow';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 class AllUser extends Component {
     constructor(props) {
@@ -39,26 +42,43 @@ class AllUser extends Component {
         //         return <TableRow obj={object} key={i} />;
         //     });
         // }
-        if (this.state.isLoaded) {
-            this.props.users.map((user, userIndex) => {
-                return (
-                    console.log("inside map"),
-                    <tr key={userIndex}>
-                        <td>{user.userName}</td>
-                        <td>{user.userPassword}</td>
-                        <td>{user.userAddress}</td>
-                    </tr>
-                );
-            })
-        }
+        // if (this.state.isLoaded) {
+        // this.props.posts.map((user, userIndex) => {
+        //     return (
+        //         console.log("userName:",user.userName),
+        //         <tr key={userIndex}>
+        //             <td>{user.userName}</td>
+        //             <td>{user.userPassword}</td>
+        //             <td>{user.userAddress}</td>
+        //         </tr>
+        //     );
+        // })
+        // }
     }
 
     render() {
         // console.log("data",this.state.user);
-        console.log("userData", this.state.userData);
-        console.log("reduxData:", this.props.users);
+        // console.log("userData", this.state.userData);
+        // console.log("reduxData:", this.props.users);
+        console.log("post data:", this.props.posts);
         return (
             <div>
+                <Router>
+                    <div className="container">
+                        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul className="navbar-nav mr-auto">
+                                    <li className="nav-item">
+                                        <Link onClick={() => {this.props.history.push('/')}} to={'/'} className="nav-link">Sign Up</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link onClick={() => {this.props.history.push('/login'); localStorage.removeItem('token');}} to={'/login'} className="nav-link">Logout</Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </Router>
                 <h3 align="center">User List</h3>
                 <table className="table table-striped container" style={{ marginTop: 20 }}>
                     <thead>
@@ -70,7 +90,24 @@ class AllUser extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.tabRow()}
+                        {/* {this.tabRow()} */}
+                        {/* {this.props.posts.map((user, userIndex) => {
+                            return (
+                                <tr key={userIndex}>
+                                    <td>{user.userName}</td>
+                                    <td>{user.userPassword}</td>
+                                    <td>{user.userAddress}</td>
+                                </tr>
+                            );
+                        })} */}
+                        {this.props.posts.map((post) => (
+                            <Fragment key={post.id}>
+                                {post.editing ?
+                                    <EditUser post={post} key={post.id} /> :
+                                    <TableRow post={post} key={post.id} />
+                                }
+                            </Fragment>
+                        ))}
                     </tbody>
                 </table>
             </div>
@@ -80,7 +117,7 @@ class AllUser extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        users: state
+        posts: state
     }
 }
 

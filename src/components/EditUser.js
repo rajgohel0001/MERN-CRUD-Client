@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import Button from '@material-ui/core/Button';
+import {connect} from 'react-redux';
 
 class EditUser extends Component {
     constructor(props){
@@ -15,20 +16,20 @@ class EditUser extends Component {
             user_password:''
         }
     }
-    componentDidMount(){
-        axios.get('http://localhost:4000/user/edit/'+this.props.match.params.id)
-            .then(response => {
-                console.log('response:',response);
-                this.setState({
-                    user_name: response.data.data.user_name,
-                    user_address: response.data.data.user_address,
-                    user_password: response.data.data.user_password
-                });
-            })
-            .catch(function (error){
-                console.log(error);
-            })
-    }
+    // componentDidMount(){
+    //     axios.get('http://localhost:4000/user/edit/'+this.props.match.params.id)
+    //         .then(response => {
+    //             console.log('response:',response);
+    //             this.setState({
+    //                 user_name: response.data.data.user_name,
+    //                 user_address: response.data.data.user_address,
+    //                 user_password: response.data.data.user_password
+    //             });
+    //         })
+    //         .catch(function (error){
+    //             console.log(error);
+    //         })
+    // }
     onChangeUserName(e) {
         this.setState({
           user_name: e.target.value
@@ -46,15 +47,21 @@ class EditUser extends Component {
     }
     onSubmit(e){
         e.preventDefault();
-        console.log('updated name:',this.state.user_name);
-        const obj = {
-            user_name: this.state.user_name,
-            user_password: this.state.user_password,
-            user_address: this.state.user_address
-        };
-        axios.post('http://localhost:4000/user/update/'+this.props.match.params.id,obj)
-            .then(res => console.log(res.data));
-        this.props.history.push('/AllUser');
+        // console.log('updated name:',this.state.user_name);
+        // const obj = {
+        //     user_name: this.state.user_name,
+        //     user_password: this.state.user_password,
+        //     user_address: this.state.user_address
+        // };
+        // axios.post('http://localhost:4000/user/update/'+this.props.match.params.id,obj)
+        //     .then(res => console.log(res.data));
+        const data = {
+            newName: this.state.user_name,
+            newPassword: this.state.user_password,
+            newAddress: this.state.user_address
+        }
+        this.props.dispatch({type:'UPDATE', id: this.props.post.id, data: data})
+        // this.props.history.push('/allUser');
     }
     render() {
         return (
@@ -65,7 +72,7 @@ class EditUser extends Component {
                             <lable>Name</lable>
                             <input type="text"
                                 className="form-control"
-                                value={this.state.user_name}
+                                defaultValue={this.props.post.userName}
                                 onChange={this.onChangeUserName}
                             />
                         </div>
@@ -73,7 +80,7 @@ class EditUser extends Component {
                             <lable>Password</lable>
                             <input type="text"
                                 className="form-control"
-                                value={this.state.user_password}
+                                defaultValue={this.props.post.userPassword}
                                 onChange={this.onChangeUserPassword}
                             />
                         </div>
@@ -81,7 +88,7 @@ class EditUser extends Component {
                             <lable>Address</lable>
                             <input type="text"
                                 className="form-control"
-                                value={this.state.user_address}
+                                defaultValue={this.props.post.userAddress}
                                 onChange={this.onChangeUserAddress}
                             />
                         </div>
@@ -92,4 +99,4 @@ class EditUser extends Component {
     }
 }
 
-export default EditUser;
+export default connect()(EditUser);

@@ -11,8 +11,9 @@ const userReducer = ( state = [], action ) => {
                 if(post.id === action.id){
                     return{
                         ...post,
-                        name:action.data.newName,
-                        address:action.data.newAddress,
+                        userName:action.data.newName,
+                        userPassword:action.data.newPassword,
+                        userAddress:action.data.newAddress,
                         editing: !post.editing
                     }
                 } else {

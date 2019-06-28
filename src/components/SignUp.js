@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import './SignUp.css';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import {BrowserRouter as Router, Link } from 'react-router-dom';
 
 class SignUp extends Component {
     constructor(props) {
@@ -43,13 +44,19 @@ class SignUp extends Component {
             user_address: this.state.user_address
         };
         axios.post('http://localhost:4000/user/add',obj)
-            .then(res => console.log(res.data));
-
+            .then(res => {
+                console.log(res)
+                if(res.status === 400){
+                    console.log("status: 400")
+                }
+            });
+    
         const data = {
             id: new Date(),
             userName: this.state.user_name,
             userPassword: this.state.user_password,
-            userAddress: this.state.user_address
+            userAddress: this.state.user_address,
+            editing: false
         }
         console.log("data:",data);
         this.props.dispatch({
@@ -62,10 +69,24 @@ class SignUp extends Component {
             user_address:'',
             user_password:''
         })
+        this.props.history.push('/login');
     }
     render() {
         return (
             <Grid container>
+                <Router>
+                    <div className="container">
+                        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul className="navbar-nav mr-auto">
+                                    <li className="nav-item">
+                                        <Link onClick={() => {this.props.history.push('/login')}} to={'/login'} className="nav-link">Log In</Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </Router>
                 <div className="signup">
                 <h1 style={{marginTop:55}}>SignUp</h1>
                 <Card style={{padding:10}}>

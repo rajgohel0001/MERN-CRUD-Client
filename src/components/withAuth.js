@@ -13,7 +13,16 @@ export default function withAuth(ComponentToProtect) {
     }
 
     componentDidMount() {
-      axios.get('http://localhost:4000/user/checkToken/'+localStorage.getItem('token'))
+
+      const jwtToken = localStorage.getItem('token');
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'JWT fefege...' ,
+        'token': jwtToken
+      }
+
+      if(jwtToken){
+        axios.get('http://localhost:4000/user/checkToken', {headers:  headers})
         .then(res => {
           if (res.status === 200) {
             this.setState({ loading: false });
@@ -26,6 +35,10 @@ export default function withAuth(ComponentToProtect) {
           console.error(err);
           this.setState({ loading: false, redirect: true });
         });
+      } else {
+        alert('no token provided');
+        this.setState({ loading: false, redirect: true });
+      }
     }
 
 
