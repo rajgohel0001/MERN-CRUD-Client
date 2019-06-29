@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import EditUser from './EditUser';
 import TableRow from './TableRow';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import userService from '../service/userService';
 
 class AllUser extends Component {
     constructor(props) {
@@ -18,15 +19,23 @@ class AllUser extends Component {
     }
 
     getUser() {
-        axios.get('http://localhost:4000/user')
-            // .then(res => res.json())
-            .then(response => {
-                this.setState({ user: response.data, isLoaded: true });
-                // console.log("response data",response.data);
+        // axios.get('http://localhost:4000/user')
+        //     // .then(res => res.json())
+        //     .then(response => {
+        //         this.setState({ user: response.data, isLoaded: true });
+        //         // console.log("response data",response.data);
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
+        userService.getUser()
+            .then((res) => {
+                try{
+                    this.setState({ user: res.data, isLoaded: true });
+                } catch(err) {
+                    console.log('err',err);
+                }
             })
-            .catch(function (error) {
-                console.log(error);
-            });
     }
     componentDidMount() {
         this.getUser();

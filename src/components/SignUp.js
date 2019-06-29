@@ -6,6 +6,7 @@ import './SignUp.css';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {BrowserRouter as Router, Link } from 'react-router-dom';
+import userService from '../service/userService';
 
 class SignUp extends Component {
     constructor(props) {
@@ -43,14 +44,23 @@ class SignUp extends Component {
             user_password: this.state.user_password,
             user_address: this.state.user_address
         };
-        axios.post('http://localhost:4000/user/add',obj)
-            .then(res => {
-                console.log(res)
-                if(res.status === 400){
-                    console.log("status: 400")
+        // axios.post('http://localhost:4000/user/add',obj)
+        //     .then(res => {
+        //         console.log(res)
+        //         if(res.status === 400){
+        //             console.log("status: 400")
+        //         }
+        //     });
+
+        userService.addUser(obj)
+            .then((res) => {
+                try{
+                    console.log('res:',res);
+                } catch(err) {
+                    console.log('err',err);
                 }
-            });
-    
+            })
+
         const data = {
             id: new Date(),
             userName: this.state.user_name,

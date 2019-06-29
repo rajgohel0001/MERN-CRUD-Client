@@ -6,6 +6,7 @@ import './Login.css';
 import axios from 'axios';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import AllUser from './AllUser';
+import userService from '../service/userService';
 
 class Login extends Component {
     constructor(props) {
@@ -35,22 +36,36 @@ class Login extends Component {
             user_name: this.state.user_name,
             user_password: this.state.user_password,
         };
-        axios.post('http://localhost:4000/user/authenticate',obj)
-            .then(res => {
-                console.log(res.data);
-                if(res.status === 200){
-                    console.log("res",res);
-                    localStorage.setItem('token',''+res.data.data);
-                    this.props.history.push('/allUser');
-                } else {
-                    const error = new Error(res.error);
-                    throw error;
+        // axios.post('http://localhost:4000/user/authenticate',obj)
+        //     .then(res => {
+        //         console.log(res.data);
+        //         if(res.status === 200){
+        //             console.log("res",res);
+        //             localStorage.setItem('token',''+res.data.data);
+        //             this.props.history.push('/allUser');
+        //         } else {
+        //             const error = new Error(res.error);
+        //             throw error;
+        //         }
+        //     })
+        //     .catch(err => {
+        //         console.error(err);
+        //         alert('Error Logging in please try again');
+        //     });
+
+        userService.authenticateUser(obj)
+            .then((res,err) => {
+                try{
+                    console.log(res.data);
+                    if(res.status === 200){
+                        console.log("res",res);
+                        localStorage.setItem('token',''+res.data.data);
+                        this.props.history.push('/allUser');
+                    }
+                } catch(err) {
+                    console.log(err);
                 }
             })
-            .catch(err => {
-                console.error(err);
-                alert('Error Logging in please try again');
-            });
     }
     render() {
         if(!(localStorage.getItem('token'))){

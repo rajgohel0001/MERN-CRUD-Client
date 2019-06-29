@@ -56,9 +56,9 @@ class EditUser extends Component {
         // axios.post('http://localhost:4000/user/update/'+this.props.match.params.id,obj)
         //     .then(res => console.log(res.data));
         const data = {
-            newName: this.state.user_name,
-            newPassword: this.state.user_password,
-            newAddress: this.state.user_address
+            newName: this.state.user_name ? this.state.user_name : this.props.post.userName,
+            newPassword: this.state.user_password ? this.state.user_password : this.props.post.userPassword,
+            newAddress: this.state.user_address ? this.state.user_address : this.props.post.userAddress
         }
         this.props.dispatch({type:'UPDATE', id: this.props.post.id, data: data})
         // this.props.history.push('/allUser');

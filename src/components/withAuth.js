@@ -33,14 +33,13 @@ export default function withAuth(ComponentToProtect) {
         })
         .catch(err => {
           console.error(err);
-          this.setState({ loading: false, redirect: true });
+          this.setState({ loading: false, redirect: false });
         });
       } else {
         alert('no token provided');
         this.setState({ loading: false, redirect: true });
       }
     }
-
 
     render() {
       const { loading, redirect } = this.state;
