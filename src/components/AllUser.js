@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 // import TableRow from './TableRow';
 import { connect } from 'react-redux';
 import EditUser from './EditUser';
