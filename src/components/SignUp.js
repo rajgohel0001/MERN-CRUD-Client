@@ -18,7 +18,8 @@ class SignUp extends Component {
         this.state = {
             user_name:'',
             user_address:'',
-            user_password:''
+            user_password:'',
+            isAdded: true
         }
     }
     onChangeUserName(e){
@@ -56,30 +57,37 @@ class SignUp extends Component {
             .then((res) => {
                 try{
                     console.log('res:',res);
+                    console.log('status:',res.status);
+                    if (res === undefined){
+                        this.setState({
+                            isAdded: false
+                        })
+                    }
                 } catch(err) {
                     console.log('err',err);
                 }
             })
-
-        const data = {
-            id: new Date(),
-            userName: this.state.user_name,
-            userPassword: this.state.user_password,
-            userAddress: this.state.user_address,
-            editing: false
+        
+        if(this.state.isAdded){
+            const data = {
+                id: new Date(),
+                userName: this.state.user_name,
+                userPassword: this.state.user_password,
+                userAddress: this.state.user_address,
+                editing: false
+            }
+            console.log("data:",data);
+            this.props.dispatch({
+                type:'ADD_USER',
+                data
+            });
+            this.setState({
+                user_name:'',
+                user_address:'',
+                user_password:''
+            })
+            this.props.history.push('/login');
         }
-        console.log("data:",data);
-        this.props.dispatch({
-            type:'ADD_USER',
-            data
-        });
-
-        this.setState({
-            user_name:'',
-            user_address:'',
-            user_password:''
-        })
-        this.props.history.push('/login');
     }
     render() {
         return (

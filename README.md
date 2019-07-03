@@ -1,6 +1,38 @@
+## Table Of Contents
+- [About-this-project](#About-this-project)
+- [Directory-Strucure](#Directory-Structure)
+- [Getting-Started](#Getting-Started)
+- [Dependancies](#Dependancies)
+
+## About this Project
+
+### What is MERN-CRUD?
+
+    * MERN-CRUD is web-app for creating user and also update userprofile.
+
+    * In MERN-CRUD web-app user can signin with username, password and address details after login jwt token is given from server and user can update his profile without jwt token user can't navigate any other pages of web-app.
+
+## Directory Structure
+
+```
++-- /src [components]
+    +--
+        +-- /login 
+            +-- [login component for login activity]
+        +-- /sign up 
+            +-- [sign up component for sign up activity]
+        +-- /with auth 
+            +-- [with auth component for authentication of routing]
+        +--/all user 
+            +-- [all user component for list of users]
+        +--/service 
+            +-- [service file]
+        +--/config 
+            [config file]
+```
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Getting started
 
 In the project directory, you can run:
 
@@ -66,3 +98,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## Dependancies
+
+* Open package.json to see all development and production dependencies or run npm ls in the project    root directory for all installed dependencies.

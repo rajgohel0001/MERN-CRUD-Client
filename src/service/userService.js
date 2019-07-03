@@ -8,7 +8,9 @@ export default {
      * Add User
      */
     addUser: (obj) => {
-        return axios.post(config.baseApiUrl+'add',obj);
+        return axios.post(config.baseApiUrl+'add',obj)
+            .then((res) => res)
+            .catch((err) => console.log(err));
     },
 
     /**

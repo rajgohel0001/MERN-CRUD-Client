@@ -99,16 +99,6 @@ class AllUser extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {this.tabRow()} */}
-                        {/* {this.props.posts.map((user, userIndex) => {
-                            return (
-                                <tr key={userIndex}>
-                                    <td>{user.userName}</td>
-                                    <td>{user.userPassword}</td>
-                                    <td>{user.userAddress}</td>
-                                </tr>
-                            );
-                        })} */}
                         {this.props.posts.map((post) => (
                             <Fragment key={post.id}>
                                 {post.editing ?
