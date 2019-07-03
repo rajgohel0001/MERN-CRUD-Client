@@ -7,6 +7,7 @@ import './SignUp.css';
 import {connect} from 'react-redux';
 import {BrowserRouter as Router, Link } from 'react-router-dom';
 import userService from '../service/userService';
+import Swal from 'sweetalert2';
 
 class SignUp extends Component {
     constructor(props) {
@@ -65,6 +66,10 @@ class SignUp extends Component {
                     }
                 } catch(err) {
                     console.log('err',err);
+                    Swal.fire({
+                        title: 'Internal server error',
+                        type: 'warning'
+                    })
                 }
             })
         

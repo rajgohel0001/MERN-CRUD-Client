@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default function withAuth(ComponentToProtect) {
   return class extends Component {
@@ -36,7 +37,10 @@ export default function withAuth(ComponentToProtect) {
           this.setState({ loading: false, redirect: false });
         });
       } else {
-        alert('no token provided');
+        Swal.fire({
+          title: 'Unauthorised user',
+          type: 'warning'
+      })
         this.setState({ loading: false, redirect: true });
       }
     }
