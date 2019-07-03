@@ -22,7 +22,7 @@
         +-- /sign up 
             +-- [sign up activity]
         +-- /with auth 
-            +-- [with auth component for authentication of routing]
+            +-- [authentication of routing]
         +--/all user 
             +-- [list of users]
         +--/service 
