@@ -18,15 +18,15 @@
 +-- /src [components]
     +--
         +-- /login 
-            +-- [login component for login activity]
+            +-- [login activity]
         +-- /sign up 
-            +-- [sign up component for sign up activity]
+            +-- [sign up activity]
         +-- /with auth 
             +-- [with auth component for authentication of routing]
         +--/all user 
-            +-- [all user component for list of users]
+            +-- [list of users]
         +--/service 
-            +-- [service file]
+            +-- [for request and response of api call]
         +--/config 
             [config file]
 ```
