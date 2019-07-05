@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
 import Swal from 'sweetalert2';
+import usreService from '../service/userService';
 
 export default function withAuth(ComponentToProtect) {
   return class extends Component {
@@ -23,7 +23,7 @@ export default function withAuth(ComponentToProtect) {
       }
 
       if(jwtToken){
-        axios.get('http://localhost:4000/user/checkToken', {headers:  headers})
+        usreService.checkToken(headers)
         .then(res => {
           if (res.status === 200) {
             this.setState({ loading: false });
